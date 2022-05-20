@@ -1,0 +1,3 @@
+[submodule "docker-metaerg"]
+	path = docker-metaerg
+	url = https://github.com/xiaoli-dong/docker-metaerg
