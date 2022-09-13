@@ -39,6 +39,16 @@ jobs:
           tool_ver: ${{ matrix.manifest }}
         id: toolsplit
         run: echo "::set-output name=TOOL::${tool_ver%,*}"
+      - name: build/doihaveto
+        id: checkregistry
+        env:
+          PAT: ${{ secrets.PAT }}
+          VERSION: ${{ steps.versplit.outputs.VERSION }}
+          TOOL: ${{ steps.versplit.outputs.TOOl }}
+        run: |
+          manifest=$(curl -X GET https://docker.pkg.github.com/v2/nickp60/${tool}/${VERSION}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
+          echo $manifest
+        #run: echo "::set-output name=RUN::$(curl --head --fail -H \'Authorization: Bearer ${PAT}\' https://ghcr.io/v2/nickp60/dockerfiles/manifests/${VERSION} &&  raise 1  || echo tag doesnt yet exist )"
       - name: 'Build:dockerimage'
         # we want the actions's "if" to evaluate to true if the tag doesnt exist,
         # so we try it to list the tag via curl; if that fails, let it return a successfull exit code via the echo statment
@@ -47,7 +57,7 @@ jobs:
         env:
           VERSION: steps.versplit.outputs.VERSION
           TOOL: steps.toolsplit.outputs.TOOL
-        if: "curl --head --fail -H 'Authorization: Bearer ${{ secrets.PAT }}' https://ghcr.io/v2/nickp60/dockerfiles/manifests/${{ steps.versplit.outputs.VERSION }} &&  raise 1  || echo tag doesnt yet exist "
+        if: {{ steps.checkregistry.outputs.RUN }}
         with:
           registry: ghcr.io
           username: "nickp60"
