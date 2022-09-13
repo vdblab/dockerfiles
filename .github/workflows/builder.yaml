@@ -14,8 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-matrix
-#        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq -cR 'split(",")')"
-        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq -cR -s 'split("\n")')"
+        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq --raw-input . | jq -c --slurp .)"
   build:
     name: 'Build'
     needs: list-manifests
@@ -26,8 +25,6 @@ jobs:
     steps:
       - name: "Build:checkout"
         uses: actions/checkout@v2
-      - name: print manifest
-        run: echo "${{ matrix.manifest  }}"
       # there is likely a more elegant way to parse this back in the list-manifests step.
       # See https://code.dblock.org/2021/09/03/generating-task-matrix-by-looping-over-repo-files-with-github-actions.html and
       # https://stackoverflow.com/questions/73402042/github-action-expressions-split-string  and
@@ -43,16 +40,20 @@ jobs:
         id: toolsplit
         run: echo "::set-output name=TOOL::${tool_ver%,*}"
       - name: 'Build:dockerimage'
-        uses: docker/build-push-action@v1
+        # we want the actions's "if" to evaluate to true if the tag doesnt exist,
+	# so we try it to list the tag via curl; if that fails, let it return a successfull exit code via the echo statment
+	# otherwise raise an error
+        uses: docker/build-push-action@v2
         env:
           VERSION: steps.versplit.outputs.VERSION
           TOOL: steps.toolsplit.outputs.TOOL
+        if: "curl --head --fail -H 'Authorization: Bearer ${{ secrets.PAT }}' https://ghcr.io/v2/nickp60/dockerfiles/manifests/${{ steps.versplit.outputs.VERSION }} &&  raise 1  || echo tag doesnt yet exist "
         with:
           registry: ghcr.io
-          #username: "nickp60"
-          #password: ${{ secrets.PAT }}
-          build-args: "VERSION=${VERSION}"
-          context: "${{defaultContext}}:${TOOL}"
-          #push: true
-          repository: nickp60/${TOOL}
-          tags: ${VERSION}
+          username: "nickp60"
+          password: ${{ secrets.PAT }}
+          build-args: "VERSION=${{ steps.versplit.outputs.VERSION }}"
+          file: "./${{ steps.toolsplit.outputs.TOOL }}/Dockerfile"
+          push: true
+          repository: "nickp60/${{ steps.toolsplit.outputs.TOOL }}"
+          tags: "${{ steps.versplit.outputs.VERSION }}"
