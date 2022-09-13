@@ -1,0 +1,58 @@
+name: 'build'
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  list-manifests:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+#        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq -cR 'split(",")')"
+        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq -cR -s 'split("\n")')"
+  build:
+    name: 'Build'
+    needs: list-manifests
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            manifest: ${{ fromJson(needs.list-manifests.outputs.matrix) }}
+    steps:
+      - name: "Build:checkout"
+        uses: actions/checkout@v2
+      - name: print manifest
+        run: echo "${{ matrix.manifest  }}"
+      # there is likely a more elegant way to parse this back in the list-manifests step.
+      # See https://code.dblock.org/2021/09/03/generating-task-matrix-by-looping-over-repo-files-with-github-actions.html and
+      # https://stackoverflow.com/questions/73402042/github-action-expressions-split-string  and
+      # https://stackoverflow.com/questions/66025220/paired-values-in-github-actions-matrix for inspiration
+      - name: Get version
+        env:
+          tool_ver: ${{ matrix.manifest }}
+        id: versplit
+        run: echo "::set-output name=VERSION::${tool_ver##*,}"
+      - name: Get tool
+        env:
+          tool_ver: ${{ matrix.manifest }}
+        id: toolsplit
+        run: echo "::set-output name=TOOL::${tool_ver%,*}"
+      - name: 'Build:dockerimage'
+        uses: docker/build-push-action@v1
+        env:
+          VERSION: steps.versplit.outputs.VERSION
+          TOOL: steps.toolsplit.outputs.TOOL
+        with:
+          registry: ghcr.io
+          #username: "nickp60"
+          #password: ${{ secrets.PAT }}
+          build-args: "VERSION=${VERSION}"
+          context: "${{defaultContext}}:${TOOL}"
+          #push: true
+          repository: nickp60/${TOOL}
+          tags: ${VERSION}

@@ -1,5 +1,6 @@
 FROM continuumio/miniconda:4.7.12
-RUN conda install -y -n base -c bioconda -c biobakery -c conda-forge -c defaults kneaddata bmtagger
+ARG VERSION="0.6.1"
+RUN conda install -y -n base -c bioconda -c biobakery -c conda-forge -c defaults kneaddata==${VERSION} bmtagger #
 #FROM mambaorg/micromamba:0.22.0
 #RUN micromamba install -y -n base -c bioconda -c biobakery -c conda-forge -c defaults kneaddata bmtagger
 # FROM ubuntu:18.04
