@@ -49,7 +49,7 @@ jobs:
           URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
           cmd="curl -H 'Authorization: Bearer ${PAT} ' ${URL} '"
-          echo ::debug::$(echo $cmd)
+          echo ::debug::echo $cmd
           echo "::set-output name=RUN::$($cmd)"
       - name: build/doihavetocheck
         id: checkregistryres
