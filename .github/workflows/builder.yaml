@@ -46,9 +46,11 @@ jobs:
         id: checkregistry
         env:
           PAT: ${{ secrets.GITHUB_TOKEN }}
-          URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/${{ steps.versplit.outputs.VERSION }}"
+          URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
-          echo "::set-output name=RUN::$(curl --head --fail -H \'Authorization: Bearer ${PAT}\' ${URL} -o  /dev/stderr -w '%{http_code}')"
+          cmd="curl -H 'Authorization: Bearer ${PAT} ' ${URL} '"
+          echo ::debug::$(echo $cmd)
+          echo "::set-output name=RUN::$($cmd)"
       - name: build/doihavetocheck
         id: checkregistryres
         run: |
@@ -69,7 +71,7 @@ jobs:
           REGISTRY: "ghcr.io"
           VERSION: ${{ steps.versplit.outputs.VERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
-        if: "!contains(steps.checkregistry.outputs.RUN, '200')"
+        if: "contains(steps.checkregistry.outputs.RUN, 'MANIFEST_UNKNOWN')"
         with:
           build-args: "VERSION=${{ env.VERSION }}"
           file: "${{ env.TOOL }}/Dockerfile"
