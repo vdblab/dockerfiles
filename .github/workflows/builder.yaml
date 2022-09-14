@@ -77,5 +77,4 @@ jobs:
           build-args: "VERSION=${{ steps.versplit.outputs.VERSION }}"
           file: "${{ steps.toolsplit.outputs.TOOL }}/Dockerfile"
           push: true
-          repository: "nickp60/${{ steps.toolsplit.outputs.TOOL }}"
-          tags: "${{ steps.versplit.outputs.VERSION }}"
+          tags: "${{ github.actor }}/${{ env.TOOL }}:${{ steps.versplit.outputs.VERSION }}"
