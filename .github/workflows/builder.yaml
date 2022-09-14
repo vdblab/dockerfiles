@@ -45,10 +45,16 @@ jobs:
           PAT: ${{ secrets.PAT }}
           VERSION: ${{ steps.versplit.outputs.VERSION }}
           TOOL: ${{ steps.versplit.outputs.TOOl }}
+          URL: https://ghcr.io/v2/nickp60/${TOOL}/${VERSION}
         run: |
-          manifest=$(curl -X GET https://docker.pkg.github.com/v2/nickp60/${tool}/${VERSION}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
-          echo "::set-output name=RUN::$manifest"
-        #run: echo "::set-output name=RUN::$(curl --head --fail -H \'Authorization: Bearer ${PAT}\' https://ghcr.io/v2/nickp60/dockerfiles/manifests/${VERSION} &&  raise 1  || echo tag doesnt yet exist )"
+          #manifest=$(curl -X GET https://docker.pkg.github.com/v2/nickp60/${tool}/${VERSION}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
+          #echo "::set-output name=RUN::$manifest"
+          echo "::set-output name=RUN::$(curl --head --fail -H \'Authorization: Bearer ${PAT}\' ${URL} -o  /dev/stderr -w '%{http_code}')"
+      - name: build/doihavetocheck
+        id: checkregistryres
+        run: |
+          echo "::debug::${{ steps.checkregistry.outputs.RUN }}"
+          echo "::debug::${{ steps.versplit.outputs.VERSION }}"
       - name: 'Build:dockerimage'
         # we want the actions's "if" to evaluate to true if the tag doesnt exist,
         # so we try it to list the tag via curl; if that fails, let it return a successfull exit code via the echo statment
@@ -57,13 +63,13 @@ jobs:
         env:
           VERSION: steps.versplit.outputs.VERSION
           TOOL: steps.toolsplit.outputs.TOOL
-        if: {{ steps.checkregistry.outputs.RUN }}
+        if: "!contains(steps.checkregistry.outputs.RUN, '200')"
         with:
           registry: ghcr.io
           username: "nickp60"
           password: ${{ secrets.PAT }}
           build-args: "VERSION=${{ steps.versplit.outputs.VERSION }}"
-          file: "./${{ steps.toolsplit.outputs.TOOL }}/Dockerfile"
+          file: "${{ steps.toolsplit.outputs.TOOL }}/Dockerfile"
           push: true
           repository: "nickp60/${{ steps.toolsplit.outputs.TOOL }}"
           tags: "${{ steps.versplit.outputs.VERSION }}"
