@@ -50,8 +50,8 @@ jobs:
         run: |
           curl_result=$(curl -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
           echo ::debug::echo $curl_result
-	  result=$(cat $curl_result | jq '.')
-	  echo ::debug::echo $result
+          result=$(cat $curl_result | jq '.')
+          echo ::debug::echo $result
           echo "::set-output name=RUN::$result"
       - name: build/doihavetocheck
         id: checkregistryres
