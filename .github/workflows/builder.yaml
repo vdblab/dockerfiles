@@ -62,7 +62,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: "ghcr.io"
-          username: ${{ github.actor }}
+          username: vdblab
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Build:dockerimage'
         # we want the actions's "if" to evaluate to true if the tag doesnt exist,
@@ -78,4 +78,4 @@ jobs:
           build-args: "VERSION=${{ env.VERSION }}"
           file: "${{ env.TOOL }}/Dockerfile"
           push: true
-          tags: "${{ env.REGISTRY }}/${{ github.actor }}/${{ env.TOOL }}:${{ env.VERSION }}"
+          tags: "${{ env.REGISTRY }}/vdblab/${{ env.TOOL }}:${{ env.VERSION }}"
