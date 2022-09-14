@@ -47,7 +47,7 @@ jobs:
           TOOL: ${{ steps.versplit.outputs.TOOl }}
         run: |
           manifest=$(curl -X GET https://docker.pkg.github.com/v2/nickp60/${tool}/${VERSION}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
-          echo $manifest
+          echo "::set-output name=RUN::$manifest"
         #run: echo "::set-output name=RUN::$(curl --head --fail -H \'Authorization: Bearer ${PAT}\' https://ghcr.io/v2/nickp60/dockerfiles/manifests/${VERSION} &&  raise 1  || echo tag doesnt yet exist )"
       - name: 'Build:dockerimage'
         # we want the actions's "if" to evaluate to true if the tag doesnt exist,
