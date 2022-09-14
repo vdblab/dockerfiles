@@ -48,9 +48,11 @@ jobs:
           PAT: ${{ secrets.GITHUB_TOKEN }}
           URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
-          cmd="curl -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }} | jq '.'"
-          echo ::debug::echo $cmd
-          echo "::set-output name=RUN::$($cmd)"
+          curl_result=$(curl -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
+          echo ::debug::echo $curl_result
+	  result=$(cat $curl_result | jq '.')
+	  echo ::debug::echo $result
+          echo "::set-output name=RUN::$result"
       - name: build/doihavetocheck
         id: checkregistryres
         run: |
