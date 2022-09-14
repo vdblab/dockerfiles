@@ -70,6 +70,7 @@ jobs:
         # otherwise raise an error
         uses: docker/build-push-action@v2
         env:
+	  REGISTRY: "ghcr.io"
           VERSION: ${{ steps.versplit.outputs.VERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
         if: "!contains(steps.checkregistry.outputs.RUN, '200')"
@@ -77,4 +78,4 @@ jobs:
           build-args: "VERSION=${{ env.VERSION }}"
           file: "${{ env.TOOL }}/Dockerfile"
           push: true
-          tags: "${{ github.actor }}/${{ env.TOOL }}:${{ env.VERSION }}"
+          tags: "${{ env.REGISTRY }}/${{ github.actor }}/${{ env.TOOL }}:${{ env.VERSION }}"
