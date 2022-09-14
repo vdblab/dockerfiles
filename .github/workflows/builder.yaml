@@ -48,7 +48,7 @@ jobs:
           PAT: ${{ secrets.GITHUB_TOKEN }}
           URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
-          curl_result=$(curl -v -X GET ${URL} -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
+          curl_result=$(curl -v -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
           echo ::debug::echo $curl_result
           result=$(echo $curl_result | jq '.')
           echo ::debug::echo $result
