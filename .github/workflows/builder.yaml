@@ -48,15 +48,16 @@ jobs:
           PAT: ${{ secrets.GITHUB_TOKEN }}
           URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
-          curl_result=$(curl -v -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
-          echo ::debug::echo $curl_result
-          result=$(echo $curl_result | jq '.')
-          echo ::debug::echo $result
-          echo "::set-output name=RUN::$result"
+          # curl_result=$(curl -v -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
+          # echo ::debug::echo $curl_result
+          # result=$(echo $curl_result | jq '.')
+          # echo ::debug::echo $result
+          # echo "::set-output name=RUN::$result"
+          echo "::set-output name=EXISTS::docker manifest inspect ghcr.io/vdblab/${{ steps.toolsplit.outputs.TOOL }} :${{ steps.versplit.outputs.VERSION} > /dev/null ; echo $?"
       - name: build/doihavetocheck
         id: checkregistryres
         run: |
-          echo "::debug::${{ steps.checkregistry.outputs.RUN }}"
+          echo "::debug::${{ steps.checkregistry.outputs.EXISTS }}"
           echo "::debug::${{ steps.versplit.outputs.VERSION }}"
       - name: Log in to the Container registry
         uses: docker/login-action@v2
@@ -73,7 +74,7 @@ jobs:
           REGISTRY: "ghcr.io"
           VERSION: ${{ steps.versplit.outputs.VERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
-        if: "contains(steps.checkregistry.outputs.RUN, 'MANIFEST_UNKNOWN')"
+        if: steps.checkregistry.outputs.EXISTS != 0
         with:
           build-args: "VERSION=${{ env.VERSION }}"
           file: "${{ env.TOOL }}/Dockerfile"
