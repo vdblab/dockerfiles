@@ -48,7 +48,7 @@ jobs:
           PAT: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.versplit.outputs.VERSION }}
           TOOL: ${{ steps.versplit.outputs.TOOl }}
-          URL: https://ghcr.io/v2/nickp60/${TOOL}/${VERSION}
+          URL: https://ghcr.io/v2/vdblab/${TOOL}/${VERSION}
         run: |
           #manifest=$(curl -X GET https://docker.pkg.github.com/v2/nickp60/${tool}/${VERSION}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
           #echo "::set-output name=RUN::$manifest"
