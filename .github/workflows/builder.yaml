@@ -48,7 +48,8 @@ jobs:
           PAT: ${{ secrets.GITHUB_TOKEN }}
           URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.VERSION }}"
         run: |
-          cmd="curl -H 'Authorization: Bearer ${PAT} ' ${URL} '"
+          #cmd="curl -H 'Authorization: Bearer ${PAT} ' ${URL} "
+          cmd=curl -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }} | jq '.')
           echo ::debug::echo $cmd
           echo "::set-output name=RUN::$($cmd)"
       - name: build/doihavetocheck
