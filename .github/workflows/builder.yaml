@@ -10,6 +10,9 @@ jobs:
   list-manifests:
     runs-on: ubuntu-latest
     outputs:
+      #
+      # DRYRUN: ["rgi,5.2.1", "redcap,1.0.0"]
+      #
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
