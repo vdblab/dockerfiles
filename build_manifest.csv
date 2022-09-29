@@ -3,7 +3,7 @@ cutadapt,3.7
 dada2,1.20.0
 #docker-metaerg,1.2.3
 kneaddata-bmtagger,0.6.1
-micro16S-blast,2.13.0
+micro16s-blast,2.13.0
 redcapr,1.0.0
 rgi,5.2.1
 bowtie2,2.3.4.1
