@@ -33,7 +33,7 @@ RUN apt-get update && \
 
 # You may be tempted to do these all in one call but unfortunately
 # (eg) biom-format wont build without numpy, and it wont install it automatically
-RUN RUN pip3 install boto3 cloudpickle awscli
+RUN pip3 install boto3 cloudpickle awscli \
     pip3 install https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz --no-binary :all: && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
     pip3 install  metaphlan==4.0.2 &&  du --max-depth 1 -h  ~/.cache/pip && \
