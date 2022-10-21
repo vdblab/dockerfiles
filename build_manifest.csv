@@ -10,3 +10,5 @@ bowtie2,2.3.4.1
 snap-aligner,2.0.1
 biobakery-profiler,20221001
 utility,0b
+phanta,v1
+portalclient,1.4.5
