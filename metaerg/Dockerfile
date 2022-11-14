@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 MAINTAINER Xiaoli Dong <xiaolid@gmail.com>
 MAINTAINER Nick Waters <nickp60@gmail.com>
 LABEL version="1.2.3"
-ARG VERSION="3fc66633e2fa0c8657a7318c59fcc09d50085563"
+ARG VERSION="6394ab1de8b9061711cf55dc0498cb6c058ea340"
 WORKDIR /NGStools/
 
 # TZdata on 20.04 requires noninteractive to work
