@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 MAINTAINER Xiaoli Dong <xiaolid@gmail.com>
 MAINTAINER Nick Waters <nickp60@gmail.com>
 LABEL version="1.2.3"
-ARG VERSION="6394ab1de8b9061711cf55dc0498cb6c058ea340"
+ARG VERSION="780ff43db27d8af99c32ea87ca7e3b21aa882fd3"
 WORKDIR /NGStools/
 
 # TZdata on 20.04 requires noninteractive to work
@@ -102,7 +102,7 @@ RUN tar -xzf /minpath1.4.tar.gz && \
 
 #metaerg
 # overwrite version for clean container names but fixed code
-RUN wget https://github.com/nickp60/metaerg/archive/3fc66633e2fa0c8657a7318c59fcc09d50085563.tar.gz && tar xzf 3fc66633e2fa0c8657a7318c59fcc09d50085563.tar.gz && mv metaerg-3fc66633e2fa0c8657a7318c59fcc09d50085563 metaerg
+RUN wget https://github.com/nickp60/metaerg/archive/780ff43db27d8af99c32ea87ca7e3b21aa882fd3.tar.gz && tar xzf 780ff43db27d8af99c32ea87ca7e3b21aa882fd3.tar.gz && mv metaerg-780ff43db27d8af99c32ea87ca7e3b21aa882fd3 metaerg
 ENV MinPath /NGStools/MinPath
 # Clean
 RUN apt-get remove -y autoconf \
