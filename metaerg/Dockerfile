@@ -101,7 +101,8 @@ RUN tar -xzf /minpath1.4.tar.gz && \
 
 
 #metaerg
-RUN wget https://github.com/nickp60/metaerg/archive/${VERSION}.tar.gz && tar xzf ${VERSION}.tar.gz && mv metaerg-${VERSION} metaerg #git clone https://github.com/niccw/metaerg
+# overwrite version for clean container names but fixed code
+RUN wget https://github.com/nickp60/metaerg/archive/3fc66633e2fa0c8657a7318c59fcc09d50085563.tar.gz && tar xzf 3fc66633e2fa0c8657a7318c59fcc09d50085563.tar.gz && mv metaerg-3fc66633e2fa0c8657a7318c59fcc09d50085563 metaerg
 ENV MinPath /NGStools/MinPath
 # Clean
 RUN apt-get remove -y autoconf \
