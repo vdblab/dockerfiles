@@ -94,7 +94,7 @@ RUN mkdir diamond && \
     cd /NGStools
 
 #MinPath
-COPY minpath1.4.tar.gz /
+COPY static/minpath1.4.tar.gz /
 RUN tar -xzf /minpath1.4.tar.gz && \
     rm /minpath1.4.tar.gz && \
     cd /NGStools
