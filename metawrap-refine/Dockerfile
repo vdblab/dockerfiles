@@ -1,0 +1,19 @@
+FROM mambaorg/micromamba:0.25.1
+ARG VERSION=1.3
+# needs to be scikit-learn 1.1 beacause in 1.2 mixed types in dataframe names raises an error rather than a warning
+# concoct makes their "joined" object from a PCA matrix (column names are numbers) and the depth (column names a string)
+
+RUN micromamba install -y -n base  -c conda-forge -c bioconda -c defaults  biopython bwa samtools metabat2 concoct maxbin2 checkm-genome wget "libopenblas=*=openmp*" scikit-learn=1.1  && \
+    micromamba clean --all --yes
+# note that the matawrap requires python2 :(
+# and we also have to install biopython 2 for it. And that needs numpy, and that has to be compiled, henc python-dev and buildessential
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+USER root
+RUN apt-get update && apt-get  install python-dev  build-essential python2 -y && wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2 get-pip.py && pip2 install numpy biopython==1.69
+RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
+ENV PATH=/tmp/metaWRAP-${VERSION}/bin/:$PATH
+RUN wget --no-check-certificate https://data.ace.uq.edu.au/public/CheckM_databases/checkm_data_2015_01_16.tar.gz &&         mkdir -p /tmp/checkm_database 		&& tar -xzf checkm_data_2015_01_16.tar.gz -C /tmp/checkm_database 		&& rm -rf checkm_data_2015_01_16.tar.gz
+# Did this for development, I think I angered their servers :(
+#COPY checkm_database /tmp/checkm_database
+#USER mambauser
+RUN echo /tmp/checkm_database | checkm data setRoot /tmp/checkm_database
