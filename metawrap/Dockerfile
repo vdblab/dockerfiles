@@ -11,7 +11,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 USER root
 # note that the matawrap requires python2 :(
 # and we also have to install biopython 2 for it. And that needs numpy, and that has to be compiled, hence python-dev and buildessential
-RUN apt-get update && apt-get  install python-dev  build-essential python2 -y && rm -rf /var/lib/apt/lists/* && wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2 get-pip.py && pip2 install numpy biopython==1.69
+RUN apt-get update && apt-get  install python-dev  build-essential python2 -y && rm -rf /var/lib/apt/lists/* && wget https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2 get-pip.py && pip2 install numpy biopython==1.69 && mkdir /metawrap/ && chown mambauser:mambauser /metawrap/
 
 ### NOTE: depreciated inclusion of checkm data
 # Did this for development, I think I angered their servers :(
@@ -20,5 +20,6 @@ RUN apt-get update && apt-get  install python-dev  build-essential python2 -y &&
 #RUN echo /tmp/checkm_database | checkm data setRoot /tmp/checkm_database
 
 USER mambauser
+WORKDIR /metawrap/
 RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
-ENV PATH=/tmp/metaWRAP-${VERSION}/bin/:$PATH
+ENV PATH=/metawrap/metaWRAP-${VERSION}/bin/:$PATH
