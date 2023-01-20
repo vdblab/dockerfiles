@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+ENV VERSION=2.3.1
+RUN apt-get update && apt-get install  wget pigz -y && apt-get clean
+RUN wget https://github.com/shenwei356/seqkit/releases/download/v${VERSION}/seqkit_linux_amd64.tar.gz && tar xzf seqkit_linux_amd64.tar.gz && ls && mv ./seqkit /usr/local/bin/
