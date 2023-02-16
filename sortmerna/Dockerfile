@@ -10,7 +10,7 @@ WORKDIR /build
 RUN apk update && apk add curl bash build-base
 
 WORKDIR /build
-RUN curl -O -L https://github.com/biocore/sortmerna/releases/download/v${SORTMERNA_VERSION}/sortmerna-${VERSION}-Linux.sh
+RUN curl -O -L https://github.com/biocore/sortmerna/releases/download/v${VERSION}/sortmerna-${VERSION}-Linux.sh
 RUN bash sortmerna-${VERSION}-Linux.sh --skip-license
 RUN strip /build/bin/sortmerna
 
@@ -23,4 +23,4 @@ COPY --from=alpine-build-sortmerna /build/bin/sortmerna /usr/local/bin/sortmerna
 ENTRYPOINT ["/usr/local/bin/sortmerna"]
 
 LABEL author='github.com/bschiffthaler'
-LABEL software.version=${SORTMERNA_VERSION}
+LABEL software.version=${VERSION}
