@@ -18,7 +18,7 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-
 FROM python:3.8.14-buster AS runtime-image
 # This arg doesn't get used. there are 4 things to keep in sync: metaphlan, humann, chocophlan db, and the human dbs.
 # Because of this, we just tag with the date the container was built, rather than the tool version
-ARG VERSION=4.0.2
+ARG VERSION=0.0.0
 
 COPY --from=dbbuild /dbs/util/ /dbs/util/
 COPY --from=dbbuild /usr/local/bin/samtools /usr/local/bin/samtools
@@ -33,10 +33,13 @@ RUN apt-get update && \
 
 # You may be tempted to do these all in one call but unfortunately
 # (eg) biom-format wont build without numpy, and it wont install it automatically
+
+# see the glpsol issue here https://forum.biobakery.org/t/silent-errors-with-bad-install-of-libglpk/4814
 RUN pip3 install boto3 cloudpickle awscli && \
-    pip3 install https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz --no-binary :all: && \
+    pip3 install -vvv https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz --no-binary :all: && \
+    ldconfig /usr/local/lib && glpsol --version && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
-    pip3 install  metaphlan==4.0.3 &&  du --max-depth 1 -h  ~/.cache/pip && \
+    pip3 install  metaphlan==4.0.4 &&  du --max-depth 1 -h  ~/.cache/pip && \
     rm -r  ~/.cache/pip
 
 # The --help is so you can check to ensure that the grouping table are properly read
