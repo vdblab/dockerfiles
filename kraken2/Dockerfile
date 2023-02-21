@@ -29,8 +29,12 @@ RUN cd /usr/ && \
     cd Bracken-${BRACKENVERSION} && \
     chmod +x install_bracken.sh && \
     ./install_bracken.sh  && \
+    find . -name "kmer2read_distr" && \
+    ls && \
     cp bracken* /usr/local/bin && \
-    bracken --help
+    cp src/kmer2read_distr /usr/local/bin &&\
+    bracken --help && \
+    kmer2read_distr --help
 
 # Install krakentools
 RUN wget https://github.com/jenniferlu717/KrakenTools/archive/refs/tags/v1.2.tar.gz && \
