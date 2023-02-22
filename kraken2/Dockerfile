@@ -33,6 +33,7 @@ RUN cd /usr/ && \
     ls && \
     cp bracken* /usr/local/bin && \
     cp src/kmer2read_distr /usr/local/bin &&\
+    cp src/*.py /usr/local/bin && \
     bracken --help && \
     kmer2read_distr --help
 
