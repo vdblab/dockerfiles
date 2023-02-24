@@ -39,7 +39,7 @@ RUN pip3 install boto3 cloudpickle awscli && \
     pip3 install -vvv https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz --no-binary :all: && \
     ldconfig /usr/local/lib && glpsol --version && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
-    pip3 install  metaphlan==4.0.4 &&  du --max-depth 1 -h  ~/.cache/pip && \
+    pip3 install  metaphlan==4.0.5 &&  du --max-depth 1 -h  ~/.cache/pip && \
     rm -r  ~/.cache/pip
 
 # The --help is so you can check to ensure that the grouping table are properly read
