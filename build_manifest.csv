@@ -18,3 +18,4 @@ seqkit,2.3.1
 sortmerna,4.3.6
 kraken2,2.1.2
 kraken2-patch,2.1.2
+lefse,1.1.2
