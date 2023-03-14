@@ -16,6 +16,9 @@ case $base in
       docker run --rm $image bedtools -h
 
       ;;
+  taxumap )
+      docker run --rm $image run_taxumap.py -h
+      ;;
   *)
       echo "Invalid option. Exiting"
       ;;
