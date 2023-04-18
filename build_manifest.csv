@@ -8,7 +8,7 @@ redcapr,1.0.0
 rgi,6.0.0
 bowtie2,2.5.0
 snap-aligner,2.0.1
-biobakery-profiler,20230224
+biobakery-profiler,20230418
 utility,0b
 phanta,v1
 portalclient,1.4.5
@@ -20,4 +20,4 @@ kraken2,2.1.2
 kraken2-patch,2.1.2
 lefse,1.1.2
 taxumap,0.0.0
-megahit,5f329c6d24a1480b75145a4c14567a25453b95bf
+megahit,5f329c6

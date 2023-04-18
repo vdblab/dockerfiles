@@ -35,11 +35,16 @@ RUN apt-get update && \
 # (eg) biom-format wont build without numpy, and it wont install it automatically
 
 # see the glpsol issue here https://forum.biobakery.org/t/silent-errors-with-bad-install-of-libglpk/4814
+
+# this nucleotide.py makes bowtie indexing parallel
+ADD nucleotide.py /tmp/nucleotide.py
 RUN pip3 install boto3 cloudpickle awscli && \
-    pip3 install -vvv https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz --no-binary :all: && \
+    wget https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz && \
+    tar xzf 3.6.tar.gz && ls && cd humann-3.6 && cp /tmp/nucleotide.py humann/search/nucleotide.py && \
+    pip3 install -vvv . --no-binary :all: && \
     ldconfig /usr/local/lib && glpsol --version && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
-    pip3 install  metaphlan==4.0.5 &&  du --max-depth 1 -h  ~/.cache/pip && \
+    pip3 install metaphlan==4.0.5 &&  du --max-depth 1 -h  ~/.cache/pip && \
     rm -r  ~/.cache/pip
 
 # The --help is so you can check to ensure that the grouping table are properly read
