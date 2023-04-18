@@ -38,9 +38,13 @@ RUN apt-get update && \
 
 # this nucleotide.py makes bowtie indexing parallel
 ADD nucleotide.py /tmp/nucleotide.py
+# We also have to bump to a more recent version of bowtie that is multithreaded,
+# so we clumsily make that with some uninspired sed calls
 RUN pip3 install boto3 cloudpickle awscli && \
     wget https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz && \
     tar xzf 3.6.tar.gz && ls && cd humann-3.6 && cp /tmp/nucleotide.py humann/search/nucleotide.py && \
+    mv setup.py tmp.py && cat tmp.py | sed "s|2\.2\.3|2\.5\.1|g" > tmp2.py  && \
+    sed "s|bowtie2_folder\=\"bowtie2-2\.5\.1|bowtie2_folder\=\"bowtie2-2\.5\.1-linux-x86_64|g" tmp2.py > setup.py && \
     pip3 install -vvv . --no-binary :all: && \
     ldconfig /usr/local/lib && glpsol --version && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
@@ -50,3 +54,5 @@ RUN pip3 install boto3 cloudpickle awscli && \
 # The --help is so you can check to ensure that the grouping table are properly read
 RUN humann_config --update database_folders utility_mapping /dbs/util/ && \
     humann_regroup_table --help
+
+#RUN cd humann-3.6 && ls examples &&  humann --input examples/demo.fasta.gz --output tmpout
