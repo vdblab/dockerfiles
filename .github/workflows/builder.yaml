@@ -81,5 +81,6 @@ jobs:
         with:
           build-args: "VERSION=${{ env.VERSION }}"
           file: "${{ env.TOOL }}/Dockerfile"
+	  context: "${{ env.TOOL }}/"
           push: true
           tags: "${{ env.REGISTRY }}/vdblab/${{ env.TOOL }}:${{ env.VERSION }}"
