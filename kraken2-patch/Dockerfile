@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 MAINTAINER sminot@fredhutch.org
 ARG VERSION="2.1.2"
+ENV LC_ALL C
 # Install prerequisites
 ## python-is-python3 ensures that programs (krakentools) that use
 ## python use the installed python3 rather than looking for python in the path
