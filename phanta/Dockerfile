@@ -8,8 +8,8 @@ WORKDIR /home/mambauser/phanta-${VERSION}/
 RUN micromamba install -y -n base  --file phanta_env.yaml  && \
     micromamba install -y -n base -c conda-forge singularity && \
     micromamba clean --all --yes
-RUN mv Snakefile tmp && echo "containerized: 'docker://ghcr.io/vdblab/phanta:${VERSION}'" > Snakefile && cat tmp >> Snakefile && \
-    mv pipeline_scripts/prep_to_merge_normed.py tmp && cat tmp | sed "s header #header g" > pipeline_scripts/prep_to_merge_normed.py
+RUN mv Snakefile tmp && echo "containerized: 'docker://ghcr.io/vdblab/phanta:${VERSION}'" > Snakefile && cat tmp >> Snakefile
+#    mv pipeline_scripts/prep_to_merge_normed.py tmp && cat tmp | sed "s header #header g" > pipeline_scripts/prep_to_merge_normed.py
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENV PATH="/opt/conda/bin:${PATH}"
