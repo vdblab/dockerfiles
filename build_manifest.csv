@@ -11,7 +11,7 @@ bowtie2,2.5.0
 snap-aligner,2.0.1
 biobakery-profiler,20230418a
 utility,0b
-phanta,1.1.0-a
+phanta,1.1.0-dev
 portalclient,1.4.5
 coverm,0.6.1
 metawrap,1.3
