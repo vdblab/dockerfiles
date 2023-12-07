@@ -18,10 +18,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
     r-cran-tidyverse r-cran-dbi r-cran-httr r-cran-jsonlite \
         && rm -rf /var/lib/apt/lists/*
 
-ADD isabl_io /isabl_io/
-WORKDIR /isabl_io/
-RUN pip install .
-
+#ADD isabl_io /isabl_io/
+#WORKDIR /isabl_io/
+#RUN pip install .
+RUN pip install click pandas fcid
 #FROM python:3.7-slim AS run-image
 # COPY --from=install-image /root/.local /root/.local
 #RUN Rscript -e "for (pkg in c('DBI', 'RPostgres', 'dotenv', 'dplyr', 'dbplyr', 'tidyr', 'httr', 'jsonlite')) install.packages(pkg)"
