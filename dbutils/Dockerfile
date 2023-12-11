@@ -25,6 +25,6 @@ RUN pip install click pandas fcid
 #FROM python:3.7-slim AS run-image
 # COPY --from=install-image /root/.local /root/.local
 #RUN Rscript -e "for (pkg in c('DBI', 'RPostgres', 'dotenv', 'dplyr', 'dbplyr', 'tidyr', 'httr', 'jsonlite')) install.packages(pkg)"
-RUN Rscript -e "for (pkg in c('RPostgres', 'dotenv')) install.packages(pkg)"
+RUN Rscript -e "for (pkg in c('RPostgres', 'dotenv', 'janitor')) install.packages(pkg)"
 # Make sure scripts in .local are usable:
 #ENV PATH=/root/.local/bin:$PATH
