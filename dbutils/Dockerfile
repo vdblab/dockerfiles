@@ -15,7 +15,7 @@
 
 FROM python:3.10-slim
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential gcc git r-base r-base-dev libpq-dev libssl-dev  libcurl4-openssl-dev \
-    r-cran-tidyverse r-cran-dbi r-cran-httr r-cran-jsonlite \
+    r-cran-tidyverse r-cran-dbi r-cran-httr r-cran-jsonlite mdbtools \
         && rm -rf /var/lib/apt/lists/*
 
 #ADD isabl_io /isabl_io/
