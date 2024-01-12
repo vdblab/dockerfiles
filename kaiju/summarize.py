@@ -18,7 +18,7 @@ def read_kaiju_polars(file):
   columns = [i for i,v in enumerate(kaiju_cols.values()) if v is not None]
   new_columns = [k for k,v in kaiju_cols.items() if v is not None]
   dtypes = {k:v for k,v in kaiju_cols.items() if v is not None}
-  x = pl.read_csv(file,has_header=False, sep='\t',columns=columns,new_columns=new_columns,dtypes=dtypes)
+  x = pl.read_csv(file, has_header=False, separator='\t',columns=columns,new_columns=new_columns,dtypes=dtypes)
   x_tally = (
     x
     .lazy()
