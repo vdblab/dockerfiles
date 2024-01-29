@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 #WORKDIR /isabl_io/
 #RUN pip install .
 RUN pip install click pandas fcid
+RUN pip install git+https://github.com/papaemmelab/isabl_cli@7ba242191432852856c4c4f01f5a5183d3300acc
 #FROM python:3.7-slim AS run-image
 # COPY --from=install-image /root/.local /root/.local
 #RUN Rscript -e "for (pkg in c('DBI', 'RPostgres', 'dotenv', 'dplyr', 'dbplyr', 'tidyr', 'httr', 'jsonlite')) install.packages(pkg)"
