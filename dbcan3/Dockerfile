@@ -4,7 +4,7 @@ FROM continuumio/miniconda3
 WORKDIR /app
 
 # install conda packages
-RUN conda create -y -n run_dbcan python=3.8 dbcan -c conda-forge -c bioconda && conda clean -ya
+RUN conda create -y -n run_dbcan python=3.8 dbcan=3.0.6 -c conda-forge -c bioconda && conda clean -ya
 
 # add run_dbcan environment to path
 RUN echo "source activate run_dbcan" > ~/.bashrc
