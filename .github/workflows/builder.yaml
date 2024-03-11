@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(cat build_manifest.csv |grep -v '^#' | jq --raw-input . | jq -c --slurp .)"
+        run: echo "matrix=$(cat build_manifest.csv |grep -v '^#' | jq --raw-input . | jq -c --slurp .)" >> $GITHUB_OUTPUT
   build:
     name: 'Build'
     needs: list-manifests
@@ -39,12 +39,12 @@ jobs:
         env:
           tool_ver: ${{ matrix.manifest }}
         id: versplit
-        run: echo "::set-output name=VERSION::${tool_ver##*,}"
+        run: echo "VERSION=${tool_ver##*,}" >> $GITHUB_OUTPUT
       - name: Get tool
         env:
           tool_ver: ${{ matrix.manifest }}
         id: toolsplit
-        run: echo "::set-output name=TOOL::${tool_ver%,*}"
+        run: echo "TOOL=${tool_ver%,*}" >> $GITHUB_OUTPUT
       - name: build/doihaveto
         id: checkregistry
         env:
@@ -55,8 +55,8 @@ jobs:
           # echo ::debug::echo $curl_result
           # result=$(echo $curl_result | jq '.')
           # echo ::debug::echo $result
-          # echo "::set-output name=RUN::$result"
-          echo "::set-output name=EXISTS::$(docker manifest inspect ghcr.io/vdblab/${{ steps.toolsplit.outputs.TOOL }}:${{ steps.versplit.outputs.VERSION }} > /dev/null ; echo $?)"
+          # echo "RUN=$result" >> $GITHUB_OUTPUT
+          echo "EXISTS=$(docker manifest inspect ghcr.io/vdblab/${{ steps.toolsplit.outputs.TOOL }}:${{ steps.versplit.outputs.VERSION }} > /dev/null ; echo $?)" >> $GITHUB_OUTPUT
       - name: build/doihavetocheck
         id: checkregistryres
         run: |
