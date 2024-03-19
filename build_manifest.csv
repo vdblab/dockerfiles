@@ -13,7 +13,7 @@ biobakery-profiler,20230418a
 utility,0b
 phanta,1.1.0-dev
 portalclient,1.4.5
-coverm,0.6.1
+coverm,0.7.0-dev
 metawrap,1.3
 seqkit,2.3.1
 sortmerna,4.3.6
@@ -29,3 +29,4 @@ dbutils,0.1.4
 sratools,3.0.10
 art,2016.06.05
 dbcan3,3.0.6.12
+crispropendb,0.0.1
