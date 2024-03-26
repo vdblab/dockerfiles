@@ -1,0 +1,1 @@
+Just making a note about the versions associated with the Dockerfile.  I will structure it as X.Z  X will refer to the version of dbcan (which itself might have multiple parts ie 3.0.6) and Z the version of the database being used. 
