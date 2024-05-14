@@ -4,7 +4,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /dbs/util/ && \
-   wget  -c --read-timeout=5 http://huttenhower.sph.harvard.edu/humann_data/full_mapping_v201901b.tar.gz 2> dload.log && \
+   wget  -c --read-timeout=5 http://huttenhower.sph.harvard.edu/humann_data/full_mapping_v201901b.tar.gz && \
    cd /dbs/util/ && \
    tar xzf /full_mapping_v201901b.tar.gz && \
    rm /full_mapping_v201901b.tar.gz
@@ -41,18 +41,20 @@ ADD nucleotide.py /tmp/nucleotide.py
 # We also have to bump to a more recent version of bowtie that is multithreaded,
 # so we clumsily make that with some uninspired sed calls
 RUN pip3 install boto3 cloudpickle awscli && \
-    wget https://github.com/biobakery/humann/archive/refs/tags/3.6.tar.gz && \
-    tar xzf 3.6.tar.gz && ls && cd humann-3.6 && cp /tmp/nucleotide.py humann/search/nucleotide.py && \
+    wget https://github.com/biobakery/humann/archive/refs/tags/v3.9.tar.gz && \
+    tar xzf v3.9.tar.gz && ls && cd humann-3.9 && cp /tmp/nucleotide.py humann/search/nucleotide.py && \
     mv setup.py tmp.py && cat tmp.py | sed "s|2\.2\.3|2\.5\.1|g" > tmp2.py  && \
     sed "s|bowtie2_folder\=\"bowtie2-2\.5\.1|bowtie2_folder\=\"bowtie2-2\.5\.1-linux-x86_64|g" tmp2.py > setup.py && \
     pip3 install -vvv . --no-binary :all: && \
     ldconfig /usr/local/lib && glpsol --version && \
     pip3 install numpy cython && pip3 install --no-cache-dir biom-format && \
-    pip3 install metaphlan==4.0.5 &&  du --max-depth 1 -h  ~/.cache/pip && \
+    pip3 install metaphlan==4.1.0 &&  du --max-depth 1 -h  ~/.cache/pip && \
     rm -r  ~/.cache/pip
 
 # The --help is so you can check to ensure that the grouping table are properly read
 RUN humann_config --update database_folders utility_mapping /dbs/util/ && \
     humann_regroup_table --help
 
-#RUN cd humann-3.6 && ls examples &&  humann --input examples/demo.fasta.gz --output tmpout
+#RUN humann_test --run-functional-tests-end-to-end
+
+#RUN cd humann-3.9 && ls examples &&  humann --input examples/demo.fasta.gz --output tmpout
