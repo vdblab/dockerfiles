@@ -1,6 +1,7 @@
 amrfinderplus,3.10.24
 cutadapt,3.7
 dada2,1.20.0
+dada2legacy,1.18.0
 metaerg,1.2.3d
 kneaddata-bmtagger,0.6.1
 micro16s-blast,2.13.0
