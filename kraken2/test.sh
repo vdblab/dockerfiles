@@ -10,4 +10,6 @@ fi
 docker run --rm kraken2tmp kraken2-build --help
 docker run --rm kraken2tmp kraken2 --help
 docker run --rm kraken2tmp bracken-build -h
-docker run --rm kraken2tmp python3 combine_kreports.py -h
+for i in combine_kreports.py alpha_diversity.py extract_kraken_reads.py ; do
+    docker run --rm kraken2tmp $i -h
+done

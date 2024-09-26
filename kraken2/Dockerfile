@@ -1,12 +1,13 @@
 FROM ubuntu:20.04
 MAINTAINER sminot@fredhutch.org
 ARG VERSION="2.1.2"
+ENV LC_ALL C
 # Install prerequisites
 ## python-is-python3 ensures that programs (krakentools) that use
 ## python use the installed python3 rather than looking for python in the path
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential wget unzip python3 \
-    python3-dev python-is-python3 git python3-pip curl autoconf autogen libssl-dev \
+    python3-dev python-is-python3 git python3-pip  python3-biopython python3-numpy curl autoconf autogen libssl-dev \
     ncbi-blast+ rsync grsync
 
 # Install kraken2
@@ -37,9 +38,8 @@ RUN cd /usr/ && \
     bracken --help && \
     kmer2read_distr --help
 
-# Install krakentools
+# Install krakentools, making them easier to execute by moving to $PATH and adding misisng hashbang
 RUN wget https://github.com/jenniferlu717/KrakenTools/archive/refs/tags/v1.2.tar.gz && \
  tar -xzf v1.2.tar.gz && \
- rm -rf v1.2.tar.gz && \
- ls && \
- mv KrakenTools-1.2/* /usr/local/bin
+    rm -rf v1.2.tar.gz && \
+ find KrakenTools-1.2/ -name "*py" | while read x ; do echo $x; base=$(basename $x); echo "#!/usr/bin/env python" > /usr/local/bin/${base} ; cat $x >> /usr/local/bin/$base ; chmod +x /usr/local/bin/$base; done
