@@ -10,7 +10,7 @@ redcapr,1.1.0
 rgi,6.0.0
 bowtie2,2.5.0
 snap-aligner,2.0.1
-biobakery-profiler,20240513a
+biobakery-profiler,20250313
 utility,0b
 phanta,1.1.0-dev
 portalclient,1.4.5
