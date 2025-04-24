@@ -94,7 +94,7 @@ RUN mkdir diamond && \
     cd /NGStools
 
 #MinPath
-RUN wget 'https://omics.informatics.indiana.edu/mg/get.php?justdoit=yes&software=minpath1.4.tar.gz' && tar xzf *minpath*tar.gz && rm *minpath*tar.gz && mv MinPath/MinPath1.4.py MinPath/MinPath.py
+RUN wget 'https://omics.informatics.indiana.edu/mg/get.php?justdoit=yes&software=minpath1.4.tar.gz' && tar xzf *minpath*tar.gz && rm *minpath*tar.gz && mv MinPath/MinPath1.4.py MinPath/MinPath.py && chmod 777 MinPath/MinPath.py
 
 
 #metaerg
