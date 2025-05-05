@@ -2,7 +2,7 @@ amrfinderplus,3.10.24
 cutadapt,3.7
 dada2,1.20.0
 dada2legacy,1.18.0
-metaerg,1.2.3d
+metaerg,1.2.3g
 kneaddata-bmtagger,0.6.1
 micro16s-blast,2.13.0
 microclass,0.0.0
@@ -10,7 +10,7 @@ redcapr,1.1.0
 rgi,6.0.0
 bowtie2,2.5.0
 snap-aligner,2.0.1
-biobakery-profiler,20240513a
+biobakery-profiler,20250313b
 utility,0b
 phanta,1.1.0-dev
 portalclient,1.4.5
@@ -27,8 +27,8 @@ speedyseq,0.0.0
 kaiju,1.10.0c
 hecatomb,0.0.0
 fastani,1.34
-dbutils,0.1.4
 SparseArray,0.0.1
+dbutils,0.1.5
 sratools,3.0.10
 art,2016.06.05
 dbcan3,4.1.4.12

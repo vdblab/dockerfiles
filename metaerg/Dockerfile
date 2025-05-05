@@ -94,10 +94,7 @@ RUN mkdir diamond && \
     cd /NGStools
 
 #MinPath
-COPY static/minpath1.4.tar.gz /
-RUN tar -xzf /minpath1.4.tar.gz && \
-    rm /minpath1.4.tar.gz && \
-    cd /NGStools
+RUN wget 'https://omics.informatics.indiana.edu/mg/get.php?justdoit=yes&software=minpath1.4.tar.gz' && tar xzf *minpath*tar.gz && rm *minpath*tar.gz && mv MinPath/MinPath1.4.py MinPath/MinPath.py && chmod 777 MinPath/MinPath.py
 
 
 #metaerg
@@ -111,7 +108,8 @@ RUN apt-get remove -y autoconf \
     git \
     make && \
     apt-get autoclean -y
-
+# we need the output from these commands to diagnose errors
+RUN cd /NGStools/metaerg/ && mv bin/output_reports.pl bin/output_reports.pl.tmp  && cat bin/output_reports.pl.tmp  | sed "s| > /dev/null 2>&1||g"  > bin/output_reports.pl
 ENV PATH="/NGStools/aragorn:/NGStools/minced:/NGStools/Prodigal:/NGStools/ncbi-blast-${BLAST_VER}+/bin:/NGStools/diamond:/NGStools/hmmer/src:/NGStools/MinPath:/NGStools/metaerg/bin:${PATH}"
 
 WORKDIR /NGStools/
