@@ -27,7 +27,7 @@ WORKDIR /tmp
 RUN export LC_ALL=en_US.UTF-8 && export LANG=en_US.UTF-8
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y  build-essential   libjpeg-dev zlib1g-dev libbz2-dev liblzma-dev && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y  build-essential   libjpeg-dev zlib1g-dev libbz2-dev liblzma-dev ncbi-blast+ mafft raxml && \
     rm -rf /var/lib/apt/lists/*
 
 
