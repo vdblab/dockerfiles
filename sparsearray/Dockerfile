@@ -1,4 +1,4 @@
-FROM r-base:4.3
+FROM r-base:4.3.0
 # Update the package list and upgrade existing packages
 RUN apt-get update && apt-get upgrade -y
 
