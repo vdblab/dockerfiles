@@ -14,9 +14,7 @@ RUN apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install SparseArray
-RUN for (pkg in c('BiocManager')) install.packages(pkg)
-RUN for (pkg in c('SparseArray')) BiocManager::install(pkg)
+RUN R -e "install.packages(c('BiocManager', 'tidyverse'))"
+RUN R -e "BiocManager::install('SparseArray')"
 
 ENV PATH=/usr/local/bin:$PATH
-
-ENTRYPOINT ["R"]
