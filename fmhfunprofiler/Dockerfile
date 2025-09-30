@@ -1,7 +1,7 @@
 FROM mambaorg/micromamba:0.25.1
 ARG VERSION="1.1.0"
 USER root
-RUN apt-get update &&  apt-get install libgomp1 -y
+RUN apt-get update &&  apt-get install libgomp1 procps -y
 USER mambauser
 RUN micromamba install -y -n base  -c conda-forge -c bioconda -c defaults wget unzip bc sourmash pandas biom-format && micromamba clean --all --yes
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
