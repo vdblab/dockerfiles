@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 AS dbbuild
+FROM python:3.9.17-buster AS dbbuild
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y wget  ca-certificates build-essential  zlib1g-dev  libbz2-dev liblzma-dev && \
     rm -rf /var/lib/apt/lists/*
@@ -15,7 +15,7 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-
 
 
 #FROM ubuntu:18.04 AS runtime-image
-FROM python:3.8.14-buster AS runtime-image
+FROM python:3.9.17-buster AS runtime-image
 
 
 ARG HUMANNVERSION=0.0.0
