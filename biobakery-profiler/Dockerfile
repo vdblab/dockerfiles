@@ -42,8 +42,8 @@ ADD config_${HUMANNVERSION}.patch /tmp/config.patch
 # We also have to bump to a more recent version of bowtie that is multithreaded,
 # so we clumsily make that with some uninspired sed calls
 RUN pip3 install boto3 cloudpickle awscli && \
-    wget https://github.com/biobakery/humann/archive/refs/tags/v${HUMANNVERSION}.tar.gz && \
-    tar xzf v${HUMANNVERSION}.tar.gz && ls && \
+    wget https://github.com/biobakery/humann/archive/refs/tags/${HUMANNVERSION}.tar.gz && \
+    tar xzf ${HUMANNVERSION}.tar.gz && ls && \
     cd humann-${HUMANNVERSION} && \
     patch  humann/search/nucleotide.py  < /tmp/nucleotide.patch && \
     patch  humann/config.py  < /tmp/config.patch && \
