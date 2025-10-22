@@ -86,10 +86,10 @@ jobs:
         uses: docker/build-push-action@v2
         env:
           REGISTRY: "ghcr.io"
-          VERSION: ${{ steps.versplit.outputs.RAWVERSION }}
+          VERSION: ${{ steps.rawversplit.outputs.RAWVERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
-          HUMANNVERSION: ${{ steps.toolsplit.outputs.HUMANNVERSION }}
-          METAPHLANVERSION: ${{ steps.toolsplit.outputs.METAPHLANVERSION }}
+          HUMANNVERSION: ${{ steps.humannversplit.outputs.HUMANNVERSION }}
+          METAPHLANVERSION: ${{ steps.metaphlanversplit.outputs.METAPHLANVERSION }}
 
         if: steps.checkregistry.outputs.EXISTS != 0
         with:
