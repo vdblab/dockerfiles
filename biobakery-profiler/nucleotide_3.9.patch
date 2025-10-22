@@ -1,0 +1,4 @@
+106a107,109
+>     #add threads
+>     if config.threads > 1:
+>         args+=["--threads",config.threads]
