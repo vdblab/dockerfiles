@@ -39,12 +39,15 @@ RUN apt-get update && \
 # this nucleotide.py makes bowtie indexing parallel
 ADD nucleotide_${HUMANNVERSION}.patch /tmp/nucleotide.patch
 ADD config_${HUMANNVERSION}.patch /tmp/config.patch
+
 # We also have to bump to a more recent version of bowtie that is multithreaded,
 # so we clumsily make that with some uninspired sed calls
 RUN pip3 install boto3 cloudpickle awscli && \
     wget https://github.com/biobakery/humann/archive/refs/tags/${HUMANNVERSION}.tar.gz && \
-    tar xzf ${HUMANNVERSION}.tar.gz && ls && \
-    cd humann-${HUMANNVERSION} && \
+    mkdir humann  && \
+    tar xzf ${HUMANNVERSION}.tar.gz -C humann --strip-components=1 && \
+    ls && \
+    cd humann && \
     patch  humann/search/nucleotide.py  < /tmp/nucleotide.patch && \
     patch  humann/config.py  < /tmp/config.patch && \
     mv setup.py tmp.py && cat tmp.py | sed "s|2\.2\.3|2\.5\.1|g" > tmp2.py  && \
