@@ -16,8 +16,8 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-
 
 #FROM ubuntu:18.04 AS runtime-image
 FROM python:3.8.14-buster AS runtime-image
-# This arg doesn't get used. there are 4 things to keep in sync: metaphlan, humann, chocophlan db, and the human dbs.
-# Because of this, we just tag with the date the container was built, rather than the tool version
+
+
 ARG HUMANNVERSION=0.0.0
 ARG METAPHLANVERSION=0.0.0
 

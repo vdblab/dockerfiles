@@ -88,12 +88,13 @@ jobs:
           REGISTRY: "ghcr.io"
           RAWVERSION: ${{ steps.rawversplit.outputs.RAWVERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
-          HUMANNVERSION: ${{ steps.humannversplit.outputs.HUMANNVERSION }}
-          METAPHLANVERSION: ${{ steps.metaphlanversplit.outputs.METAPHLANVERSION }}
 
         if: steps.checkregistry.outputs.EXISTS != 0
         with:
-          build-args: "RAWVERSION=${{ env.RAWVERSION }} HUMANNVERSION=${{ env.HUMANNVERSION }} METAPHLANVERSION=${{ env.METAPHLANVERSION }}"
+          build-args: |
+            RAWVERSION=${{ steps.rawversplit.outputs.RAWVERSION }}
+            HUMANNVERSION=${{ steps.humannversplit.outputs.HUMANNVERSION }}
+            METAPHLANVERSION=${{ steps.metaphlanversplit.outputs.METAPHLANVERSION }}
           file: "${{ env.TOOL }}/Dockerfile"
           context: "${{ env.TOOL }}/"
           push: true
