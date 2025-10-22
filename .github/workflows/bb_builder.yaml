@@ -83,10 +83,10 @@ jobs:
         # we want the actions's "if" to evaluate to true if the tag doesnt exist,
         # so we try it to list the tag via curl; if that fails, let it return a successfull exit code via the echo statment
         # otherwise raise an error
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         env:
           REGISTRY: "ghcr.io"
-          VERSION: ${{ steps.rawversplit.outputs.RAWVERSION }}
+          RAWVERSION: ${{ steps.rawversplit.outputs.RAWVERSION }}
           TOOL: ${{ steps.toolsplit.outputs.TOOL }}
           HUMANNVERSION: ${{ steps.humannversplit.outputs.HUMANNVERSION }}
           METAPHLANVERSION: ${{ steps.metaphlanversplit.outputs.METAPHLANVERSION }}
