@@ -21,7 +21,6 @@ FROM python:3.8.14-buster AS runtime-image
 ARG HUMANNVERSION=0.0.0
 ARG METAPHLANVERSION=0.0.0
 
-COPY --from=dbbuild /dbs/util/ /dbs/util/
 COPY --from=dbbuild /usr/local/bin/samtools /usr/local/bin/samtools
 
 WORKDIR /tmp
