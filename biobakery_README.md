@@ -4,6 +4,7 @@ The compatibility of various versions of the tools and databases used in a Metap
 The names of these images will be
 
 ## Humann v4 alpha
+
 -- Metaphlan Version:  4.0.6
 -- Metaphlan Database: vOct22_CHOCOPhlAnSGB_202403
 -- Utility Database: https://g-227ca.190ebd.75bc.data.globus.org/humann_data/full_mapping_v4_alpha.tar.gz
@@ -11,6 +12,7 @@ The names of these images will be
 -- Nucleotide database: http://huttenhower.sph.harvard.edu/humann_data/chocophlan/chocophlan_EC_FILTERED.v4_alpha.tar.gz
 
 ## Humann 3.9 2023
+
 -- Metaphlan Version:  4.1.0
 -- Metaphlan Database: mpa_vJun23_CHOCOPhlAnSGB_202403
 -- Utility Database: https://g-227ca.190ebd.75bc.data.globus.org/humann_data/full_mapping_v201901b.tar.gz
@@ -19,6 +21,7 @@ The names of these images will be
 -- Demo Nucleotide database: http://huttenhower.sph.harvard.edu/humann_data/chocophlan/DEMO_chocophlan.v201901_v31.tar.gz
 
 ## Humann 3.6 2021
+
 -- Metaphlan Version: 4.0.5
 -- Metaphlan Database: vOct22_CHOCOPhlAnSGB_202403
 -- Utility Database: https://g-227ca.190ebd.75bc.data.globus.org/humann_data/full_mapping_v201901b.tar.gz
