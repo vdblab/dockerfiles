@@ -23,7 +23,7 @@ The tags of these images will be tagged with the metaphlan version, `--`, humann
 ## Humann 3.6 2021
 
 - Metaphlan Version: 4.0.5
-- Metaphlan Database: vOct22_CHOCOPhlAnSGB_202403
+- Metaphlan Database: vJan21_CHOCOPhlAnSGB_202103
 - Utility Database: https://g-227ca.190ebd.75bc.data.globus.org/humann_data/full_mapping_v201901b.tar.gz
 - Protein Database  uniref90
 - Nucleotide database:  v201901_v31/
