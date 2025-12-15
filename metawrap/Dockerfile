@@ -22,7 +22,17 @@ RUN apt-get update && apt-get  install python-dev  build-essential python2 -y &&
 USER mambauser
 WORKDIR /metawrap/
 RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v1.3.tar.gz && tar xzf v1.3.tar.gz && ls && echo  $PWD
-RUN chmod +x /metawrap/metaWRAP-1.3/bin/config-metawrap
+# added the following for the config patch
+# if [ -z ${METAWRAP_CONFIG+x} ]; then
+# echo "METAWRAP_CONFIG is unset";
+#  config_file=$(which config-metawrap)
+# else
+# echo "METAWRAP_CONFIG is set to '$METAWRAP_CONFIG'";
+#  config_file=$METAWRAP_CONFIG
+# fi
+# diff bin/metawrap bin/metawrap_new  > bin/config-metawrap.patch
+ADD config-metawrap.patch /tmp/config-metawrap.patch
+RUN patch  /metawrap/metaWRAP-1.3/bin/config-metawrap < /tmp/config-metawrap.patch
 ENV PATH=/metawrap/metaWRAP-1.3/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
 #RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
 #RUN chmod +x /metawrap/metaWRAP-${VERSION}/bin/config-metawrap
