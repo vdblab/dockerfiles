@@ -21,6 +21,9 @@ RUN apt-get update && apt-get  install python-dev  build-essential python2 -y &&
 
 USER mambauser
 WORKDIR /metawrap/
-RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
-RUN chmod +x /metawrap/metaWRAP-${VERSION}/bin/config-metawrap
-ENV PATH=/metawrap/metaWRAP-${VERSION}/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
+RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v1.3.tar.gz && tar xzf v1.3.tar.gz && ls && echo  $PWD
+RUN chmod +x /metawrap/metaWRAP-1.3/bin/config-metawrap
+ENV PATH=/metawrap/metaWRAP-1.3/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
+#RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
+#RUN chmod +x /metawrap/metaWRAP-${VERSION}/bin/config-metawrap
+#ENV PATH=/metawrap/metaWRAP-${VERSION}/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
