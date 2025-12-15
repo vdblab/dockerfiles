@@ -2,8 +2,7 @@
 < # Master metaWRAP script that calls on individual modules/pipelines 
 ---
 > # Master metaWRAP script that calls on individual modules/pipelines
-31,32c31,37
-< 
+31c31,37
 < config_file=$(which config-metawrap)
 ---
 > if [ -z ${METAWRAP_CONFIG+x} ]; then
@@ -13,13 +12,13 @@
 >     echo "METAWRAP_CONFIG is set to '$METAWRAP_CONFIG'";
 >     config_file=$METAWRAP_CONFIG
 > fi
-34c39
+33c39
 < if [[ $? -ne 0 ]]; then 
 ---
 > if [[ $? -ne 0 ]]; then
-81c86
+77c83
 < elif [ "$1" = quant_bins ]; then 
 ---
 > elif [ "$1" = quant_bins ]; then
-111d115
+107d112
 < 

@@ -31,9 +31,10 @@ RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v1.3.tar.gz && tar 
 #  config_file=$METAWRAP_CONFIG
 # fi
 # diff bin/metawrap bin/metawrap_new  > bin/config-metawrap.patch
-ADD config-metawrap.patch /tmp/config-metawrap.patch
-RUN patch  /metawrap/metaWRAP-1.3/bin/config-metawrap < /tmp/config-metawrap.patch
+ADD metawrap.patch /tmp/metawrap.patch
+RUN patch  /metawrap/metaWRAP-1.3/bin/metawrap < /tmp/metawrap.patch
 ENV PATH=/metawrap/metaWRAP-1.3/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
+RUN metawrap --help
 #RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
 #RUN chmod +x /metawrap/metaWRAP-${VERSION}/bin/config-metawrap
 #ENV PATH=/metawrap/metaWRAP-${VERSION}/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
