@@ -25,14 +25,15 @@ RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v1.3.tar.gz && tar 
 # added the following for the config patch
 # if [ -z ${METAWRAP_CONFIG+x} ]; then
 # echo "METAWRAP_CONFIG is unset";
-#  config_file=$(which config-metawrap)
+#  config_file=$( which config-metawrap )
 # else
 # echo "METAWRAP_CONFIG is set to '$METAWRAP_CONFIG'";
 #  config_file=$METAWRAP_CONFIG
 # fi
 # diff bin/metawrap bin/metawrap_new  > bin/config-metawrap.patch
 ADD metawrap.patch /tmp/metawrap.patch
-RUN patch  /metawrap/metaWRAP-1.3/bin/metawrap < /tmp/metawrap.patch
+RUN patch  /metawrap/metaWRAP-1.3/bin/metawrap < /tmp/metawrap.patch && \
+      for i in $(find /metawrap/metaWRAP-1.3/bin/ -type f); do echo $i ; sed -i' ' 's|(which config-metawrap)|METAWRAP_CONFIG|g' $i ; done
 ENV PATH=/metawrap/metaWRAP-1.3/bin:$MAMBA_ROOT_PREFIX/bin:$PATH
 RUN metawrap --help
 #RUN wget https://github.com/bxlab/metaWRAP/archive/refs/tags/v${VERSION}.tar.gz && tar xzf v${VERSION}.tar.gz && ls && echo  $PWD
