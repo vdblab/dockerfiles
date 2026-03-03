@@ -60,19 +60,19 @@ jobs:
         id: checkregistry
         env:
           PAT: ${{ secrets.GITHUB_TOKEN }}
-          URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.versplit.outputs.RAWVERSION }}"
+          URL: "https://ghcr.io/v2/vdblab/${{ steps.toolsplit.outputs.TOOL }}/manifests/${{ steps.rawversplit.outputs.RAWVERSION }}"
         run: |
           # curl_result=$(curl -v -X GET ${URL} -u vdblab:${{ secrets.GITHUB_TOKEN }})
           # echo ::debug::echo $curl_result
           # result=$(echo $curl_result | jq '.')
           # echo ::debug::echo $result
           # echo "RUN=$result" >> $GITHUB_OUTPUT
-          echo "EXISTS=$(docker manifest inspect ghcr.io/vdblab/${{ steps.toolsplit.outputs.TOOL }}:${{ steps.versplit.outputs.RAWVERSION }} > /dev/null ; echo $?)" >> $GITHUB_OUTPUT
+          echo "EXISTS=$(docker manifest inspect ghcr.io/vdblab/${{ steps.toolsplit.outputs.TOOL }}:${{ steps.rawversplit.outputs.RAWVERSION }} > /dev/null ; echo $?)" >> $GITHUB_OUTPUT
       - name: build/doihavetocheck
         id: checkregistryres
         run: |
           echo "::debug::${{ steps.checkregistry.outputs.EXISTS }}"
-          echo "::debug::${{ steps.versplit.outputs.RAWVERSION }}"
+          echo "::debug::${{ steps.rawversplit.outputs.RAWVERSION }}"
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
