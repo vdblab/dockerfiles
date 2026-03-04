@@ -1,7 +1,7 @@
 FROM mambaorg/micromamba:0.23.0
 ARG VERSION=1.64
 USER root
-RUN apt-get update && apt-get install curl wget zip python python3-pip -y
+RUN apt-get update && apt-get install curl wget zip python python3-pip procps -y
 USER mambauser
 
 RUN micromamba install --name base --channel bioconda --channel conda-forge diamond
