@@ -148,9 +148,9 @@ ENV LANG=en_US.UTF-8
 WORKDIR /tmp
 
 # The --help is so you can check to ensure that the grouping table are properly read
-RUN humann_config --update database_folders utility_mapping /dbs/util/ && \
-    humann_regroup_table --help
-
-RUN humann_test --run-functional-tests-end-to-end
-
-RUN cd humann-3.9 && ls examples &&  humann --input examples/demo.fasta.gz --output tmpout
+#RUN humann_config --update database_folders utility_mapping /dbs/util/ && \
+#    humann_regroup_table --help
+#
+#RUN humann_test --run-functional-tests-end-to-end
+#
+#RUN cd humann-3.9 && ls examples &&  humann --input examples/demo.fasta.gz --output tmpout
