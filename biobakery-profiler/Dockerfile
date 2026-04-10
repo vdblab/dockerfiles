@@ -89,7 +89,8 @@ RUN apt-get update && \
         mafft \
         raxml \
         libgomp1 \
-        libglpk40 && \
+        libglpk40 \
+        glpk-utils && \
     rm -rf /var/lib/apt/lists/* && \
     ldconfig /usr/local/lib && \
     glpsol --version
