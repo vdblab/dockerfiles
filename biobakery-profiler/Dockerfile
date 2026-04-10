@@ -148,3 +148,18 @@ RUN set -e && \
     echo "--- MetaPhlAn check ---" && \
     metaphlan --version && \
     echo "=== All runtime smoke tests passed ==="
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+        libjpeg62-turbo zlib1g libbz2-1.0 liblzma5 \
+        libglpk40 glpk-utils libgomp1 \
+        ncbi-blast+ mafft raxml \
+        procps \
+        locales && \
+    rm -rf /var/lib/apt/lists/* && \
+    ldconfig /usr/local/lib && \
+    sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen en_US.UTF-8
+
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
