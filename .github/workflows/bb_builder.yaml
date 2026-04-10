@@ -45,7 +45,7 @@ jobs:
         env:
           tool_ver: ${{ matrix.manifest }}
         id: humannversplit
-        run: TMP=${tool_ver##*,} && echo "AFTER_DASH=${TMP##*--}" && echo "HUMANNVERSION=${AFTER_DASH%%;*}" >> $GITHUB_OUTPUT
+        run: TMP=${tool_ver##*,} && echo "AFTER_DASH=${TMP##*--}" && echo "HUMANNVERSION=${AFTER_DASH%%_*}" >> $GITHUB_OUTPUT
       - name: Get metaphlan version
         env:
           tool_ver: ${{ matrix.manifest }}
