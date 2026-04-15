@@ -2,11 +2,11 @@ FROM --platform=linux/amd64 condaforge/mambaforge:latest
 
 WORKDIR /app
 
-COPY environment.yml .
+COPY medi.yml .
 
-RUN mamba env create -f environment.yml && mamba clean -afy
+RUN mamba env create -f medi.yml && mamba clean -afy
 
-RUN echo "conda activate $(head -1 environment.yml | cut -d' ' -f2)" >> ~/.bashrc
+ENV PATH /opt/conda/envs/medi/bin:$PATH
 
 SHELL ["/bin/bash", "--login", "-c"]
 
