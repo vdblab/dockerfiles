@@ -8,6 +8,8 @@ dependencies:
   - nextflow>=23.10.0
   - fastp
   - kraken2==2.1.3
+  - libstdcxx-ng
+  - libgcc-ng
   - bracken==2.6.0
   - prodigal
   - multiqc>=1.28.0
