@@ -1,4 +1,4 @@
-FROM docker.io/condaforge/miniforge3:latest
+FROM --platform=linux/amd64 docker.io/condaforge/miniforge3:latest
 
 RUN mkdir /tmp/medi /tmp/medi/bin
 
