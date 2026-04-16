@@ -15,4 +15,4 @@ RUN mamba env create -n medi -f /tmp/medi/medi.yml && \
     conda clean --force-pkgs-dirs --all --yes  && \
     rm -rf /tmp/medi
 
-ENTRYPOINT ["mamba", "run", "-n", "medi"]
+ENV PATH="/opt/conda/envs/medi/bin:$PATH"

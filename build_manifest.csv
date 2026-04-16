@@ -11,7 +11,7 @@ rgi,6.0.0
 bowtie2,2.5.0
 snap-aligner,2.0.1
 utility,0b
-medi,2.0.0
+medi,2.1.0
 phanta,1.1.0-dev
 portalclient,1.4.5
 prokka_and_blast,0.1.1
