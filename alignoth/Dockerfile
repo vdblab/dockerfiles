@@ -24,7 +24,7 @@ WORKDIR /build/alignoth
 RUN cargo build --release
 
 # Runtime stage - minimal image with conda for vega-lite-cli
-FROM mambaorg/micromamba:1.5-bookworm-slim
+FROM  node:lts-bookworm
 
 USER root
 
@@ -37,14 +37,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libdeflate0 \
     ca-certificates \
     procps \
+    wget \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install vega-lite-cli from conda-forge
-RUN micromamba install -y -n base -c conda-forge vega-lite-cli && \
-    micromamba clean --all --yes
+# Install vega-lite-cli direct; versions on conda-forge don't support all architectures
+RUN wget https://github.com/vega/vega-lite/archive/refs/tags/v6.4.3.zip && \
+unzip v6.4.3.zip   && cd  vega-lite-6.4.3/ && npm install
 
 COPY --from=builder /build/alignoth/target/release/alignoth /usr/local/bin/alignoth
 
-ENV PATH="/opt/conda/bin:$PATH"
+ENV PATH="/opt/conda/bin:/vega-lite-6.4.3/node_modules/vega-cli/bin:$PATH"
 
 ENTRYPOINT ["alignoth"]
