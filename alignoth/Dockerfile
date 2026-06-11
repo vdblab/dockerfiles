@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install vega-lite-cli from conda-forge
-RUN micromamba install -y -n base -c conda-forge vega-lite-cli=6.4.3 && \
+RUN micromamba install -y -n base -c conda-forge vega-lite-cli && \
     micromamba clean --all --yes
 
 COPY --from=builder /build/alignoth/target/release/alignoth /usr/local/bin/alignoth
