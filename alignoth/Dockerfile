@@ -47,6 +47,6 @@ unzip v6.4.3.zip   && cd  vega-lite-6.4.3/ && npm install
 
 COPY --from=builder /build/alignoth/target/release/alignoth /usr/local/bin/alignoth
 
-ENV PATH="/opt/conda/bin:/vega-lite-6.4.3/node_modules/vega-cli/bin:$PATH"
+ENV PATH="/opt/conda/bin:/vega-lite-6.4.3/node_modules/vega-cli/bin:/vega-lite-6.4.3/node_modules/vega-lite/bin:$PATH"
 
 ENTRYPOINT ["alignoth"]
