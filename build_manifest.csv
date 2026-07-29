@@ -34,6 +34,7 @@ dbcan3,4.1.4.12
 crispropendb,0.0.3
 smbclient,0.0.1
 qiime,1.9.1
+pyodbc_access,1.0.0
 biopythonpy2,1.69
 biopython,1.70a
 legacyampliconblast,0.0.1
