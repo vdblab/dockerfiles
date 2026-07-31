@@ -40,6 +40,7 @@ biopythonpy2,1.69
 biopython,1.70a
 legacyampliconblast,0.0.1
 access_db,1.0.2
+access_db_r,1.0.0
 #comp2comp,0.0.1a
 micom,0.37.0
 sylph,0.6.1a
